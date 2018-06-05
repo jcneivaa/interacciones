@@ -5,7 +5,7 @@ class Predator {
   int grabsMouseColor;
   int avatarColor;
   // fields
-  Vector position, velocity, acceleration, alignment, cohesion, separation, rotation; // position, velocity, and acceleration in
+  Vector position, velocity, acceleration, rotation; // position, velocity, and acceleration in
   // a vector datatype
   float neighborhoodRadius; // radius in which it looks for fellow Predators
   float maxSpeed = 4; // maximum magnitude for the velocity vector
@@ -104,10 +104,14 @@ class Predator {
   void move() {
     velocity.add(acceleration); // add acceleration to velocity
     if(up){
-      velocity.add(new Vector(0, -1, 0)); 
+      if(rotation.y()>=-1){
+        rotation.add(new Vector(0, -vChange, 0)); 
+      }
     }
     if(down){
-      velocity.add(new Vector(0, 1, 0)); 
+       if(rotation.y()<=1){
+        rotation.add(new Vector(0, vChange, 0)); 
+      }
     }
     if(left){
 
@@ -134,13 +138,7 @@ class Predator {
         rotation.add(new Vector(-vChange, 0,0)); 
       }
     }
-    if(back){
-      //velocity.add(new Vector(1, 0, 0)); 
-    }
-    if(front){
-      velocity.add(new Vector(-1, 0, 0));
-      //rotation.setX(-1);
-    }
+
     velocity.add(rotation);
     velocity.limit(maxSpeed); // make sure the velocity vector magnitude does not
     // exceed maxSpeed
@@ -169,7 +167,7 @@ class Predator {
   void render() {
     pushStyle();
 
-    // uncomment to draw boid axes
+    // uncomment to draw predator axes
     //scene.drawAxes(10);
 
     int kind = TRIANGLES;
@@ -191,7 +189,7 @@ class Predator {
       break;
     }
 
-    // highlight boids under the mouse
+    // highlight predator under the mouse
     if (node.track(mouseX, mouseY)) {
       noStroke();
       fill(grabsMouseColor);
@@ -203,7 +201,7 @@ class Predator {
       fill(avatarColor);
     }
 
-    //draw boid
+    //draw predator
     beginShape(kind);
     vertex(3 * sc, 0, 0);
     vertex(-3 * sc, 2 * sc, 0);

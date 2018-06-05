@@ -26,8 +26,6 @@ boolean up = false;
 boolean down = false;
 boolean left = false;
 boolean right = false;
-boolean front = false;
-boolean back = false;
 
 // visual modes
 // 0. Faces and edges
@@ -99,30 +97,18 @@ void keyPressed() {
   switch (key) {
   case 'w':
     up = true;
-    down=false;  
     break;
   case 'a':
     //animate = !animate;
     left=true;
-    right=false;  
     break;
   case 's':
     //if (scene.eye().reference() == null)
     //  scene.fitBallInterpolation();
-    down=true;
-    up=false;  
+    down=true; 
     break;
   case 'd':
-    right=true;
-    left=false;  
-    break;
-  case 'q':
-    front=true;
-    back=false;
-    break;
-  case 'e':
-    back=true;
-    front=false;  
+    right=true;  
     break;
   case 't':
     scene.shiftTimers();
@@ -163,13 +149,6 @@ void keyPressed() {
   case 'd':
     right=false;
     break;
-/*  case 'q':
-    front=false;
-    break;
-  case 'e':
-    back=false;
-    break;
-    */
     }
     
   }
